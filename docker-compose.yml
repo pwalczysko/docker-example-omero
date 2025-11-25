@@ -3,7 +3,7 @@ version: "3"
 services:
 
   database:
-    image: "postgres:14"
+    image: "postgres:16"
     environment:
       POSTGRES_USER: omero
       POSTGRES_DB: omero
@@ -11,7 +11,7 @@ services:
     networks:
       - omero
     volumes:
-      - "database:/var/lib/postgresql/data"
+      - "database:/Users/pwalczysko/var/omero/lib/postgresql/data"
 
   omeroserver:
     # This container uses the tag for the latest server release of OMERO 5
@@ -34,6 +34,7 @@ services:
   omeroweb:
     # This container uses the tag for the latest web release of OMERO 5
     # To upgrade to the next major release, increment the major version number
+    # platform: linux/x86_64
     image: "openmicroscopy/omero-web-standalone:5"
     environment:
       OMEROHOST: omeroserver
