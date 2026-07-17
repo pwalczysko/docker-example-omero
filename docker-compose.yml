@@ -29,7 +29,8 @@ services:
       - "4063:4063"
       - "4064:4064"
     volumes:
-      - "omero:/OMERO"
+      - "/Users/pwalczysko/Work/openmicroscopy/components/tools/OmeroPy/OMERO:/OMERO"
+      - "/Users/pwalczysko/Work/openmicroscopy:/openmicroscopy"
 
   omeroweb:
     # This container uses the tag for the latest web release of OMERO 5
