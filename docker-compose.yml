@@ -38,18 +38,10 @@ services:
     # This container uses the tag for the latest web release of OMERO 5
     # To upgrade to the next major release, increment the major version number
     platform: linux/x86_64
-    image: "khaledk2/omero-web:pip"
+    image: "khaledk2/omero-web:sta"
     #khaledk2/omero-web:pip
     environment:
       OMEROHOST: omeroserver
-      CONFIG_omero_web_middleware: >-
-        [{"index":0,"class":"whitenoise.middleware.WhiteNoiseMiddleware"},
-         {"index":1,"class":"django.middleware.common.BrokenLinkEmailsMiddleware"},
-         {"index":2,"class":"django.middleware.common.CommonMiddleware"},
-         {"index":3,"class":"django.contrib.sessions.middleware.SessionMiddleware"},
-         {"index":4,"class":"django.middleware.csrf.CsrfViewMiddleware"},
-         {"index":5,"class":"django.contrib.messages.middleware.MessageMiddleware"},
-         {"index":6,"class":"django.middleware.clickjacking.XFrameOptionsMiddleware"}]
     networks:
       - omero
     ports:
