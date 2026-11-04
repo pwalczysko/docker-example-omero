@@ -22,6 +22,8 @@ services:
       CONFIG_omero_db_user: omero
       CONFIG_omero_db_pass: omero
       CONFIG_omero_db_name: omero
+      CONFIG_omero_server_nodedescriptors: >-
+        master:Blitz-0,Processor-0,Tables-0,Indexer-0,DropBox,MonitorServer,FileServer,Storm
       ROOTPASS: omero
     networks:
       - omero
@@ -35,14 +37,25 @@ services:
   omeroweb:
     # This container uses the tag for the latest web release of OMERO 5
     # To upgrade to the next major release, increment the major version number
-    # platform: linux/x86_64
-    image: "openmicroscopy/omero-web-standalone:5"
+    platform: linux/x86_64
+    image: "khaledk2/omero-web:pip"
+    #khaledk2/omero-web:pip
     environment:
       OMEROHOST: omeroserver
+      CONFIG_omero_web_middleware: >-
+        [{"index":0,"class":"whitenoise.middleware.WhiteNoiseMiddleware"},
+         {"index":1,"class":"django.middleware.common.BrokenLinkEmailsMiddleware"},
+         {"index":2,"class":"django.middleware.common.CommonMiddleware"},
+         {"index":3,"class":"django.contrib.sessions.middleware.SessionMiddleware"},
+         {"index":4,"class":"django.middleware.csrf.CsrfViewMiddleware"},
+         {"index":5,"class":"django.contrib.messages.middleware.MessageMiddleware"},
+         {"index":6,"class":"django.middleware.clickjacking.XFrameOptionsMiddleware"}]
     networks:
       - omero
     ports:
       - "4080:4080"
+    volumes:
+      - "/Users/pwalczysko/Work/openmicroscopy:/openmicroscopy"
 
 networks:
   omero:
